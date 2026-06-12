@@ -1,0 +1,7 @@
+includes:
+  - default.yaml
+  - coco.yaml
+  - methods/logit_bce.yaml
+  - data/labelled_only.yaml
+
+teacher_checkpoint: results/teacher/checkpoints/best.pt  # Frozen teacher consumed by the student

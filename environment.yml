@@ -1,0 +1,22 @@
+name: centernet
+
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+
+dependencies:
+  - python=3.10
+  - pytorch==2.4.1
+  - torchvision==0.19.1
+  - pytorch-cuda=12.4
+  - numpy>=1.24,<2.0
+  - matplotlib
+  - pyyaml
+  - opencv
+  - pytest
+  - pip:
+    - albumentations>=1.3
+    - wandb
+    - python-dotenv

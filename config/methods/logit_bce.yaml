@@ -1,0 +1,5 @@
+method:
+  name: logit_bce
+  params:
+    temperature: 6.0
+    weight: 1.0

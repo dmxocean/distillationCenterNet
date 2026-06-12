@@ -1,0 +1,58 @@
+# Shared defaults for every run, components and experiments override as needed
+
+# Reproducibility
+seed: 42
+
+# Data and loaders
+img_size: 640
+stride: 4
+batch_size: 64            # [16|128]  images per step, rescale lr by sqrt of the batch ratio
+num_workers: 4
+
+# Data selection and split
+mixed: true               # [true|false]  mix background images at the natural ratio, false = person-only
+max_train_samples: 25000  # [null|118287]  labelled train images after the val holdout
+max_val_samples: 5000     # [1|118287]     val holdout from train2017 for selection
+max_test_samples: null    # [null|5000]    val2017 used as held out test, null = all
+max_unlabeled: 75000      # [null|123403]  unlabelled images for distillation, student semi only
+split_seed: 42            # [0|4294967295]  deterministic train / val partition
+
+# Optimisation and schedule
+epochs: 70
+lr: 0.0014                # square root scaled rate at batch 64, from 0.001 at batch 32
+weight_decay: 0.0001
+warmup_epochs: 5
+min_lr: 0.00001
+
+# Performance
+amp: bf16                 # [bf16|off]  mixed precision autocast over the training forward and loss
+grad_clip: 1.0            # [null|1.0]  max gradient norm clipped before the optimiser step, null disables
+
+# Early stopping
+es_patience: 10           # [1|epochs]  epochs of no improvement before stopping, converted by eval_every
+es_min_delta: 0.0001      # [0|1]  minimum map gain that counts as an improvement
+
+# Loss weights
+focal_weight: 1.0
+reg_weight: 0.1
+hard_weight: 1.0
+distill_weight: 1.0
+distill_reg_weight: 0.1      # [0|1]  geometry distillation weight, mirrors reg_weight, zero disables
+distill_peak_threshold: 0.3  # [0|1]  teacher confidence for the geometry transfer mask
+
+# Evaluation and visual logging frequency in epochs
+eval_every: 5             # [1|epochs]  evaluate, early-stop check, and best checkpoint every N epochs
+sample_every: 5           # [1|epochs]  save a heatmap sample every N epochs
+
+# Evaluation thresholds, the single source for decode and the metric
+eval:
+  decode_score: 0.05      # [0|1]  low decode score so average precision sees the full recall tail
+  operating_score: 0.3    # [0|1]  score for the precision recall and f one operating point
+  nms_kernel: 5           # [3|5|7]  max pool window for local peak detection at eval
+  max_dets: 100           # [1|100]  detections kept per image
+
+# Width multiplier of the student, the teacher is full width
+student_width: 0.35
+
+# Weights and Biases mode, overridable with --wandb-mode
+wandb_mode: online

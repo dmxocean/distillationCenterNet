@@ -1,0 +1,6 @@
+includes:
+  - default.yaml
+  - coco.yaml
+  - data/labelled_only.yaml
+
+role: baseline  # Student width, supervised only, no distillation

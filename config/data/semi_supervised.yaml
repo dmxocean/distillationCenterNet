@@ -1,0 +1,5 @@
+regime: semi          # [labelled|semi]  labelled plus unlabelled, interleaved
+unlabelled_ratio: 1   # [1|2]  unlabelled batches drawn per labelled batch
+
+# Epochs are inherited so every regime sees the labelled split the same number of passes
+# The unlabelled stream is added on top, so semi differs from labelled by the extra data alone

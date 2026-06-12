@@ -1,0 +1,7 @@
+includes:
+  - default.yaml
+  - coco.yaml
+  - data/labelled_only.yaml
+
+role: teacher
+width: 1.0  # Full capacity teacher

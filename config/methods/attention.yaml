@@ -1,0 +1,4 @@
+method:
+  name: attention
+  params:
+    weight: 1.0
